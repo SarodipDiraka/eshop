@@ -24,7 +24,7 @@ class HomeController extends Controller
         {
             $data = product::paginate(3);
 
-            $user = auth()->user();
+            $user = auth()->user();апрапра
 
             $count = cart::where('phone', $user->phone)->count();
             return view('user.home', compact('data', 'count'));
