@@ -17,12 +17,14 @@ Route::middleware([
 Route::get('/redirect', [HomeController::class, 'redirect']);
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'index']);
 Route::get('/search', [HomeController::class, 'search']);
 Route::post('/addcart/{id}', [HomeController::class, 'addcart']);
 Route::get('/showcart', [HomeController::class, 'showcart']);
 Route::get('/delete/{id}', [HomeController::class, 'deletecart']);
 Route::post('/order', [HomeController::class, 'confirmorder']);
 
+Route::get('/adminpanel', [AdminController::class, 'adminpanel']);
 Route::get('/product', [AdminController::class, 'product']);
 Route::get('/showproduct', [AdminController::class, 'showproduct']);
 Route::get('/deleteproduct/{id}', [AdminController::class, 'deleteproduct']);

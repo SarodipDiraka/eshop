@@ -107,4 +107,18 @@ class AdminController extends Controller
         return redirect()->back()->with('message', 'Status Updated Successfully');
     }
 
+    public function adminpanel()
+    {
+        $usertype=Auth::user()->usertype;
+
+        if($usertype=="1")
+        {
+            return view('admin.home');
+        }
+        else
+        {
+            return redirect('home');
+        }
+    }
+
 }

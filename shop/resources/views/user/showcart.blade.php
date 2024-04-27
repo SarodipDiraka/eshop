@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-    <title>Sixteen Clothing HTML Template</title>
+    <title>Cart</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -44,25 +44,25 @@ https://templatemo.com/tm-546-sixteen-clothing
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><h2>Sixteen <em>Clothing</em></h2></a>
+          <a class="navbar-brand" href="{{url('')}}"><img src="admin/assets/images/logo.svg" alt="logo" /></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="index.html">Home
+                <a class="nav-link" href="{{url('')}}">Home
                   <span class="sr-only">(current)</span>
                 </a>
               </li> 
               <li class="nav-item">
-                <a class="nav-link" href="products.html">Our Products</a>
+                <a class="nav-link" href="{{url('')}}">Our Products</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="about.html">About Us</a>
+                <a class="nav-link" href="{{url('')}}">About Us</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
+                <a class="nav-link" href="{{url('')}}">Contact Us</a>
               </li>
 
               <li class="nav-item">
@@ -106,46 +106,72 @@ https://templatemo.com/tm-546-sixteen-clothing
                               
         {{session()->get('message')}}
 
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="float:right"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="float:right;"></button>
                           
         </div>
       @endif
     </header>
 
+    @if (count($cart) > 0)
     <div style="padding: 100px" align="center">
-        <table>
-            <tr style="background-color: gray">
-                <td style="padding: 10px; font-size: 20px">Proguct name</td>
-                <td style="padding: 10px; font-size: 20px">Quantity</td>
-                <td style="padding: 10px; font-size: 20px">Price</td>
-                <td style="padding: 10px; font-size: 20px">Action</td>
+        <table class="table table-dark">
+            <thead>
+            <tr>
+                <th >Proguct name</th>
+                <th >Quantity</th>
+                <th >Price</th>
+                <th >Action</th>
             </tr>
-
+            </thead>
+            <tbody>
             <form action="{{url('order')}}" method="POST">
             @csrf
             @foreach ($cart as $carts)
-            <tr style="background-color: black">
-                <td style="padding: 10px; color: white">
+            <tr>
+                <td>
                     <input type="text" name="productname[]" value="{{$carts->product_title}}" hidden>
                     {{$carts->product_title}}
                 </td>
-                <td style="padding: 10px; color: white">
+                <td>
                     <input type="text" name="quantity[]" value="{{$carts->quantity}}" hidden>
                     {{$carts->quantity}}
                 </td>
-                <td style="padding: 10px; color: white">
+                <td>
                     <input type="text" name="price[]" value="{{$carts->price}}" hidden>
                     {{$carts->price}}
                 </td>
-                <td style="padding: 10px; color: white"><a class="btn btn-danger" href="{{url('delete', $carts->id)}}">Delete</a></td>
+                <td><a class="btn btn-danger" href="{{url('delete', $carts->id)}}">Delete</a></td>
             </tr>
             @endforeach
+          </tbody>
         </table>
 
         <button class="btn btn-success">Confirm order</button>
 
         </form>
     </div>
+    @else
+    <div class="call-to-action">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="inner-content">
+              <div class="row">
+                <div class="col-md-8">
+                  <h4>Your cart is empty!</h4>
+                  <p>Go back and choose some Creative &amp; Unique <em>Devices</em></p>
+                </div>
+                <div class="col-md-4">
+                  <a href="{{url('')}}" class="filled-button">Go Back</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+        
+    @endif
 
 
     <!-- Bootstrap core JavaScript -->

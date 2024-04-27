@@ -18,16 +18,12 @@ class HomeController extends Controller
 
         if($usertype=="1")
         {
-            return view('admin.home');
+            // return view('admin.home');
+            return redirect('adminpanel');
         }
         else
         {
-            $data = product::paginate(3);
-
-            $user = auth()->user();апрапра
-
-            $count = cart::where('phone', $user->phone)->count();
-            return view('user.home', compact('data', 'count'));
+            return redirect('home');
         }
     }
 
@@ -35,7 +31,12 @@ class HomeController extends Controller
     {
         if(Auth::id())
         {
-            return redirect('redirect');
+            $data = product::paginate(3);
+
+            $user = auth()->user();
+
+            $count = cart::where('phone', $user->phone)->count();
+            return view('user.home', compact('data', 'count'));
         }
         else 
         {

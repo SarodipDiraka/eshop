@@ -4,11 +4,11 @@
           <div class="col-md-12">
             <div class="section-heading">
               <h2>Latest Products</h2>
-              <a href="products.html">view all products <i class="fa fa-angle-right"></i></a>
+              <a href="{{url('')}}">view all products <i class="fa fa-angle-right"></i></a>
 
               <form class="form-inline" style="float: right; padding: 10px;" action="{{url('search')}}" method="get">
                 <input type="search" class="form-control" name="search" placeholder="search">
-                <input type="sumbit" value="Search" class="btn btn-success">
+                <input type="submit" value="Search" class="btn btn-success">
               </form>
 
             </div>
