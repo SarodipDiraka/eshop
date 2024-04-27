@@ -1,0 +1,7 @@
+laravel
+jetstream
+bootstrap
+postgresql
+Eloquent ORM
+https://templatemo.com/tm-546-sixteen-clothing
+https://github.com/BootstrapDash/corona-free-dark-bootstrap-admin-template
