@@ -35,7 +35,7 @@ class HomeController extends Controller
 
             $user = auth()->user();
 
-            $count = cart::where('phone', $user->phone)->count();
+            $count = cart::where('user_id', $user->id)->count();
             return view('user.home', compact('data', 'count'));
         }
         else 
@@ -69,15 +69,9 @@ class HomeController extends Controller
 
             $cart = new Cart;
 
-            $cart->name = $user->name;
+            $cart->user_id = $user->id;
 
-            $cart->phone = $user->phone;
-
-            $cart->address = $user->address;
-
-            $cart->product_title = $product->title;
-
-            $cart->price = $product->price;
+            $cart->product_id = $product->id;
 
             $cart->quantity = $request->quantity;
 
@@ -92,9 +86,17 @@ class HomeController extends Controller
     {
         $user = auth()->user();
 
-        $count = cart::where('phone', $user->phone)->count();
+        $count = cart::where('user_id', $user->id)->count();
 
-        $cart = cart::where('phone', $user->phone)->get();
+        $cart = cart::where('user_id', $user->id)->get();
+
+
+        foreach($cart as $carts)
+        {
+            $product = product::find($carts->product_id);
+            $carts->product_title = $product->title;
+            $carts->price = $product->price;
+        }
 
         return view('user.showcart', compact('count', 'cart'));
     }
@@ -111,23 +113,20 @@ class HomeController extends Controller
     {
         $user = auth()->user();
 
-        $name = $user->name;
-        $phone = $user->phone;
-        $address = $user->address;
+        $userid = $user->id;
 
-        foreach($request->productname as $key=>$productname)
+        foreach($request->id as $key=>$cartid)
         {
             $order = new order;
-            $order->product_title = $request->productname[$key];
-            $order->price = $request->price[$key];
-            $order->quantity = $request->quantity[$key];
-            $order->name = $name;
-            $order->phone = $phone;
-            $order->address = $address;
+
+            $order->product_id = $request->product_id[$key];
+
+            $order->user_id = $userid;
             $order->status = "not delivered";
+            $order->quantity = $request->quantity[$key];
             $order->save();
         }
-        DB::table('carts')->where('phone', $phone)->delete();
+        DB::table('carts')->where('user_id', $userid)->delete();
         return redirect()->back()->with('message', 'Product Ordered Successfully');
     }
 

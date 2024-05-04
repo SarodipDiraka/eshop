@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\Cart;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -96,6 +98,18 @@ class AdminController extends Controller
     public function showorder()
     {
         $order = order::all();
+
+        foreach($order as $orders)
+        {
+            $product = product::find($orders->product_id);
+            $user = user::find($orders->user_id);
+            $orders->name = $user->name;
+            $orders->phone = $user->phone;
+            $orders->address = $user->address;
+            $orders->product_title = $product->title;
+            $orders->price = $product->price;
+        }
+
         return view('admin.showorder', compact('order'));
     }
 

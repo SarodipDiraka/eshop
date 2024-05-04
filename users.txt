@@ -1,2 +1,0 @@
-admin@admin.com admin123
-test@test.com 12345678

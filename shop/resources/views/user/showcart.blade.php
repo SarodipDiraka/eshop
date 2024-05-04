@@ -142,10 +142,12 @@ https://templatemo.com/tm-546-sixteen-clothing
                 </td>
                 <td><a class="btn btn-danger" href="{{url('delete', $carts->id)}}">Delete</a></td>
             </tr>
+            <input type="text" name="product_id[]" value="{{$carts->product_id}}" hidden>
             @endforeach
           </tbody>
         </table>
 
+        <input type="text" name="id[]" value="{{$carts->id}}" hidden>
         <button class="btn btn-success">Confirm order</button>
 
         </form>
